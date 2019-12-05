@@ -1,11 +1,7 @@
 /* eslint-disable-next-line */
 <template>
   <div>
-    <movie-item
-      v-for="movie in movies"
-      :key="movie.id"
-      :movie="movie"
-    ></movie-item>
+    <movie-item v-for="movie in movies" :key="movie.id" :movie="movie"></movie-item>
   </div>
 </template>
 <script>
