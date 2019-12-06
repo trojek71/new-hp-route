@@ -9,6 +9,8 @@
         <th class="text-left">Premiera</th>
       </tr>
     </thead>
+    <thead></thead>
+
     <tbody>
       <tr v-for="movie in movies" :key="movie.id">
         <td>{{ movie.title }}</td>
@@ -44,6 +46,15 @@ export default {
   apollo: {
     movies: {
       query: GET_MOVIES
+    }
+  },
+
+  computed: {
+    columns: function columns() {
+      if (this.movies.length == 0) {
+        return [];
+      }
+      return Object.keys(this.movies[0]);
     }
   }
 };
