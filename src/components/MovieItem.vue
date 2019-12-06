@@ -1,22 +1,12 @@
 <template>
-  <table id="firstTable">
-    <thead>
-      <tr>
-        <th>Tyluł</th>
-        <th>Reżyser</th>
-        <th>Muzyka</th>
-        <th>Premiera</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr :key="movie.id">
-        <td>{{ movie.title }}</td>
-        <td>{{ movie.director }}</td>
-        <td>{{ movie.composer }}</td>
-        <td>{{ movie.release_date }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div>
+    <tr :key="movie.id">
+      <td>{{ movie.title }}</td>
+      <td>{{ movie.director }}</td>
+      <td>{{ movie.composer }}</td>
+      <td>{{ movie.release_date }}</td>
+    </tr>
+  </div>
 </template>
 
 <script>

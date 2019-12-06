@@ -13,6 +13,7 @@
     "apollo-link": "^1.2.13",
     "apollo-link-http": "^1.5.16",
     "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.1.0",
     "core-js": "^3.4.3",
     "font-awesome": "^4.7.0",
     "graphql": "^14.5.8",

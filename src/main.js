@@ -10,6 +10,7 @@ import { ApolloClient } from "apollo-client";
 import { HttpLink } from "apollo-link-http";
 import VueApollo, { ApolloProvider } from "vue-apollo";
 import { InMemoryCache } from "apollo-cache-inmemory";
+import BootstrapVue from "bootstrap-vue";
 
 Vue.config.productionTip = false;
 
@@ -26,7 +27,7 @@ const apolloClient = new ApolloClient({
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient
 });
-
+Vue.use(BootstrapVue);
 Vue.use(VueApollo);
 Vue.use(VueRouter);
 new Vue({
