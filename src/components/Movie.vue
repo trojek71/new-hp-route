@@ -11,7 +11,7 @@
         <MovieMenu />
       </div>
       <div class="col-9 bg-success p-2">
-        <h4 class="text-white m-2">Detale</h4>
+        <h4 class="text-white m-2">Filmy</h4>
 
         <router-view />
       </div>
@@ -25,7 +25,7 @@ import MovieMenu from "./MovieMenu.vue";
 export default {
   name: "Movie",
   components: {
-    MovieMenu
+   MovieMenu,
     //MovieList
   }
 };

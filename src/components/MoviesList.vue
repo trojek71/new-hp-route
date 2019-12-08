@@ -1,25 +1,31 @@
 /* eslint-disable-next-line */
 <template>
-  <table>
+<div>
+  <table >
     <thead>
       <tr>
         <th class="text-left">Tytuł</th>
         <th class="text-left">Reżyser</th>
         <th class="text-left">Muzyka</th>
-        <th class="text-left">Premiera</th>
+        <th class="text-left">Premiera</th>        
       </tr>
     </thead>
-    <thead></thead>
-
-    <tbody>
+        <tbody>
       <tr v-for="movie in movies" :key="movie.id">
         <td>{{ movie.title }}</td>
         <td>{{ movie.director }}</td>
         <td>{{ movie.composer }}</td>
         <td>{{ movie.release_date }}</td>
       </tr>
-    </tbody>
+    </tbody>    
   </table>
+  <p>
+ <button @click="prevPage">Previous</button> 
+  <button @click="nextPage">Next</button>
+  
+  
+  </p>
+</div>
 </template>
 <script>
 //import MovieItem from "./MovieItem";
@@ -36,6 +42,7 @@ const GET_MOVIES = gql`
   }
 `;
 export default {
+  
   name: "MoviesList",
   //components: { MovieItem },
   data() {
