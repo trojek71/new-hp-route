@@ -1,31 +1,29 @@
 /* eslint-disable-next-line */
 <template>
-<div>
-  <table >
-    <thead>
-      <tr>
-        <th class="text-left">Tytuł</th>
-        <th class="text-left">Reżyser</th>
-        <th class="text-left">Muzyka</th>
-        <th class="text-left">Premiera</th>        
-      </tr>
-    </thead>
-        <tbody>
-      <tr v-for="movie in movies" :key="movie.id">
-        <td>{{ movie.title }}</td>
-        <td>{{ movie.director }}</td>
-        <td>{{ movie.composer }}</td>
-        <td>{{ movie.release_date }}</td>
-      </tr>
-    </tbody>    
-  </table>
-  <p>
- <button @click="prevPage">Previous</button> 
-  <button @click="nextPage">Next</button>
-  
-  
-  </p>
-</div>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th @click="sort('title')">Tytuł</th>
+          <th @click="sort('director')">Reżyser</th>
+          <th @click="sort('composer')">Muzyka</th>
+          <th @click="sort('release_date')">Premiera</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="movie in sortedMovies" :key="movie.id">
+          <td>{{ movie.title }}</td>
+          <td>{{ movie.director }}</td>
+          <td>{{ movie.composer }}</td>
+          <td>{{ movie.release_date }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <button @click="prevPage">Previous</button>
+      <button @click="nextPage">Next</button>
+    </p>
+  </div>
 </template>
 <script>
 //import MovieItem from "./MovieItem";
@@ -42,12 +40,15 @@ const GET_MOVIES = gql`
   }
 `;
 export default {
-  
   name: "MoviesList",
   //components: { MovieItem },
   data() {
     return {
-      movies: []
+      movies: [],
+      currentSort: "name",
+      currentSortDir: "asc",
+      pageSize: 3,
+      currentPage: 1
     };
   },
   apollo: {
@@ -56,12 +57,38 @@ export default {
     }
   },
 
-  computed: {
-    columns: function columns() {
-      if (this.movies.length == 0) {
-        return [];
+  methods: {
+    sort: function(s) {
+      //if s == current sort, reverse
+      if (s === this.currentSort) {
+        this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
       }
-      return Object.keys(this.movies[0]);
+      this.currentSort = s;
+    },
+    nextPage: function() {
+      if (this.currentPage * this.pageSize < this.movies.length)
+        this.currentPage++;
+    },
+    prevPage: function() {
+      if (this.currentPage > 1) this.currentPage--;
+    }
+  },
+  computed: {
+    sortedMovies: function() {
+      return this.movies
+        .slice()
+        .sort((a, b) => {
+          let modifier = 1;
+          if (this.currentSortDir === "desc") modifier = -1;
+          if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+          if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+          return 0;
+        })
+        .filter((row, index) => {
+          let start = (this.currentPage - 1) * this.pageSize;
+          let end = this.currentPage * this.pageSize;
+          if (index >= start && index < end) return true;
+        });
     }
   }
 };
