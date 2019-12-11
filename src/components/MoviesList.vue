@@ -31,7 +31,7 @@
 //import MovieItem from "./MovieItem";
 import gql from "graphql-tag";
 const GET_MOVIES = gql`
-  query getMovies {
+  subscription getMovies {
     movies {
       id
       title
@@ -54,8 +54,14 @@ export default {
     };
   },
   apollo: {
+    $subscribe: {
     movies: {
-      query: GET_MOVIES
+      query: GET_MOVIES,
+      result(data) {
+          // Let's update the local data
+          this.movies = data.data.movies;
+        }
+    }
     }
   },
 
