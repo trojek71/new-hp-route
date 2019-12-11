@@ -49,7 +49,7 @@ export default {
       movies: [],
       currentSort: "name",
       currentSortDir: "asc",
-      pageSize: 2,
+      pageSize: 8,
       currentPage: 1
     };
   },
